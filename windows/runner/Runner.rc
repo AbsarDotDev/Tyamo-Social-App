@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "tyamo" "\0"
+            VALUE "FileDescription", "ecometsy" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "tyamo" "\0"
+            VALUE "InternalName", "ecometsy" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2023 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "tyamo.exe" "\0"
-            VALUE "ProductName", "tyamo" "\0"
+            VALUE "OriginalFilename", "ecometsy.exe" "\0"
+            VALUE "ProductName", "ecometsy" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END
