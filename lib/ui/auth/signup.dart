@@ -1,3 +1,4 @@
+import 'package:ecometsy/Utils/utils.dart';
 import 'package:ecometsy/Widgets/round_button.dart';
 import 'package:ecometsy/ui/auth/login.dart';
 import 'package:flutter/material.dart';
@@ -11,19 +12,36 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
+  void signUp() {
+    setState(() {
+      loading = true;
+    });
+    _auth
+        .createUserWithEmailAndPassword(
+            email: emailController.text.toString(),
+            password: passwordController.text.toString())
+        .then((value) {
+      setState(() {
+        loading = false;
+      });
+    }).onError((error, stackTrace) {
+      Utils().showToastMessage(error.toString());
+      setState(() {
+        loading = false;
+      });
+    });
+  }
+
   bool loading = false;
-  final _formKey =
-      GlobalKey<FormState>(); //to validate whether the field is empty or not
+  final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  FirebaseAuth _auth =
-      FirebaseAuth.instance; //fire base auth ka object utha rhe for usage
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   @override
   void dispose() {
     super.dispose();
     emailController.dispose();
-    passwordController
-        .dispose(); //to remove from memory after closing of screen
+    passwordController.dispose();
   }
 
   Widget build(BuildContext context) {
@@ -44,9 +62,8 @@ class _SignupScreenState extends State<SignupScreen> {
                       TextFormField(
                         controller: emailController,
                         keyboardType: TextInputType.emailAddress,
-                        decoration: InputDecoration(
-                            hintText: 'Email',
-                            helperText: 'bakhtiar@gmail.com',
+                        decoration: const InputDecoration(
+                            hintText: 'john@gmail.com',
                             prefixIcon: Icon(Icons.email)),
                         validator: (value) {
                           if (value!.isEmpty) {
@@ -56,13 +73,13 @@ class _SignupScreenState extends State<SignupScreen> {
                           }
                         },
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       TextFormField(
                           controller: passwordController,
                           obscureText: true,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                               hintText: 'Password',
                               prefixIcon: Icon(Icons.lock)),
                           validator: (value) {
@@ -74,42 +91,25 @@ class _SignupScreenState extends State<SignupScreen> {
                           }),
                     ],
                   )),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               RoundButton(
                 title: 'Sign Up',
                 loading: loading,
                 ontap: () {
-                  // if (_formKey.currentState!.validate()) {
-                  //   setState(() {
-                  //     loading = true; //jb button tap ho tou loading hogi
-                  //   });
-                  //   _auth
-                  //       .createUserWithEmailAndPassword(
-                  //           email: emailController.text.toString(),
-                  //           password: passwordController.text.toString())
-                  //       .then((value) {
-                  //     setState(() {
-                  //       loading = false; //hojaye tou loader nhi show hoga
-                  //     });
-                  //   }).onError((error, stackTrace) {
-                  //     Utils().toastMessage(error.toString());
-                  //     setState(() {
-                  //       loading =
-                  //           false; //jb error throw hoga tou loader stop hojaega
-                  //     });
-                  //   });
-                  // }
+                  if (_formKey.currentState!.validate()) {
+                    signUp();
+                  }
                 },
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Already have an account'),
+                  const Text('Already have an account'),
                   TextButton(
                       onPressed: () {
                         Navigator.push(
@@ -118,7 +118,7 @@ class _SignupScreenState extends State<SignupScreen> {
                               builder: (context) => LoginScreen(),
                             ));
                       },
-                      child: Text(
+                      child: const Text(
                         'Login ',
                         style: TextStyle(decoration: TextDecoration.underline),
                       ))

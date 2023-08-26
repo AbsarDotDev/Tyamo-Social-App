@@ -1,5 +1,8 @@
+import 'package:ecometsy/Utils/utils.dart';
 import 'package:ecometsy/Widgets/round_button.dart';
+import 'package:ecometsy/ui/auth/login_phone.dart';
 import 'package:ecometsy/ui/auth/signup.dart';
+import 'package:ecometsy/ui/posts/post_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -17,36 +20,36 @@ class _LoginScreenState extends State<LoginScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   bool loading = false;
-  // final _auth = FirebaseAuth.instance;
+  final _auth = FirebaseAuth.instance;
 
-  // void login() {
-  //   setState(() {
-  //     loading = true;
-  //   });
+  void login() {
+    setState(() {
+      loading = true;
+    });
 
-  //   _auth
-  //       .signInWithEmailAndPassword(
-  //     email: emailController.text.toString(),
-  //     password: passwordController.text.toString(),
-  //   )
-  //       .then((value) {
-  //     Utils().toastMessage(value.user!.email.toString());
-  //     Navigator.push(
-  //       context,
-  //       MaterialPageRoute(
-  //         builder: (context) => Post(),
-  //       ),
-  //     );
-  //     setState(() {
-  //       loading = false;
-  //     });
-  //   }).onError((error, stackTrace) {
-  //     Utils().toastMessage(error.toString());
-  //     setState(() {
-  //       loading = false;
-  //     });
-  //   });
-  // }
+    _auth
+        .signInWithEmailAndPassword(
+      email: emailController.text.toString(),
+      password: passwordController.text.toString(),
+    )
+        .then((value) {
+      Utils().showToastMessage(value.user!.email.toString());
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Post(),
+        ),
+      );
+      setState(() {
+        loading = false;
+      });
+    }).onError((error, stackTrace) {
+      Utils().showToastMessage(error.toString());
+      setState(() {
+        loading = false;
+      });
+    });
+  }
 
   @override
   void dispose() {
@@ -80,7 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     TextFormField(
                       controller: emailController,
                       keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         hintText: 'Email',
                         prefixIcon: Icon(Icons.email),
                       ),
@@ -91,11 +94,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         return null;
                       },
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     TextFormField(
                       controller: passwordController,
                       obscureText: true,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         hintText: 'Password',
                         prefixIcon: Icon(Icons.lock),
                       ),
@@ -115,7 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 loading: loading,
                 ontap: () {
                   if (_formKey.currentState!.validate()) {
-                    // login();
+                    login();
                   }
                 },
               ),
@@ -144,32 +147,32 @@ class _LoginScreenState extends State<LoginScreen> {
                 ],
               ),
               SizedBox(height: 30),
-              // InkWell(
-              //   onTap: () {
-              //     Navigator.push(
-              //       context,
-              //       MaterialPageRoute(
-              //         builder: (context) => LoginWithPhoneNumber(),
-              //       ),
-              //     );
-              //   },
-              //   child: Container(
-              //     height: 50,
-              //     decoration: BoxDecoration(
-              //       borderRadius: BorderRadius.circular(50),
-              //       border: Border.all(color: Colors.black),
-              //     ),
-              //     child: Center(
-              //       child: Text(
-              //         'Login with phone',
-              //         style: TextStyle(
-              //           fontWeight: FontWeight.bold,
-              //           color: Colors.black,
-              //         ),
-              //       ),
-              //     ),
-              //   ),
-              // ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => LoginWithPhone(),
+                    ),
+                  );
+                },
+                child: Container(
+                  height: 50,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    border: Border.all(color: Colors.black),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Login with phone',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
