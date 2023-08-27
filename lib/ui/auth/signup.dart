@@ -1,6 +1,7 @@
 import 'package:ecometsy/Utils/utils.dart';
 import 'package:ecometsy/Widgets/round_button.dart';
 import 'package:ecometsy/ui/auth/login.dart';
+import 'package:ecometsy/ui/posts/post_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -24,6 +25,12 @@ class _SignupScreenState extends State<SignupScreen> {
       setState(() {
         loading = false;
       });
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Post(),
+        ),
+      );
     }).onError((error, stackTrace) {
       Utils().showToastMessage(error.toString());
       setState(() {
