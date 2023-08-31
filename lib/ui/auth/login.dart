@@ -1,5 +1,6 @@
 import 'package:ecometsy/Utils/utils.dart';
 import 'package:ecometsy/Widgets/round_button.dart';
+import 'package:ecometsy/ui/auth/forgot_password.dart';
 import 'package:ecometsy/ui/auth/login_phone.dart';
 import 'package:ecometsy/ui/auth/signup.dart';
 import 'package:ecometsy/ui/posts_wtih_realtime/post_screen.dart';
@@ -123,6 +124,22 @@ class _LoginScreenState extends State<LoginScreen> {
                 },
               ),
               SizedBox(height: 20),
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ForgotPasswordScreen(),
+                    ),
+                  );
+                },
+                child: const Text(
+                  'Forgot Password',
+                  style: TextStyle(
+                    color: Colors.blue,
+                  ),
+                ),
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
