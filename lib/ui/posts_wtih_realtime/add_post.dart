@@ -30,25 +30,31 @@ class _AddPostState extends State<AddPost> {
               maxLines: 4,
               decoration: InputDecoration(
                 hintText: "Enter your name",
+                border:
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
               ),
+            ),
+            const SizedBox(
+              height: 20,
             ),
             RoundButton(
                 title: "Send",
+                loading: loading,
                 ontap: () {
                   setState(() {
                     loading = true;
                   });
-                  databaseRef
-                      .child(DateTime.now().millisecondsSinceEpoch.toString())
-                      .set({
-                    "id": DateTime.now().millisecondsSinceEpoch.toString(),
-                    "title": title.text.toString()
-                  }).then((value) {
+                  String id = DateTime.now().millisecondsSinceEpoch.toString();
+                  databaseRef.child(id).set(
+                      {"id": id, "title": title.text.toString()}).then((value) {
                     setState(() {
                       loading = false;
                     });
                     Utils().showToastMessage("Post added");
                   }).onError((error, stackTrace) {
+                    setState(() {
+                      loading = false;
+                    });
                     Utils().showToastMessage(error.toString());
                   });
                 })

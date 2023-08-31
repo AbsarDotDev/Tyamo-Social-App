@@ -1,5 +1,5 @@
 import 'package:ecometsy/Utils/utils.dart';
-import 'package:ecometsy/ui/posts/post_screen.dart';
+import 'package:ecometsy/ui/posts_wtih_realtime/post_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
